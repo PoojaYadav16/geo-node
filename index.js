@@ -11,8 +11,8 @@ app.use(express.json());
 let conn = mysql2.createConnection({
     host: "localhost",
     user: "root",
-    password: "pooja",
-    database: "geotagging",
+    password: "",
+    database: "final_hackathon",
 });
 app.listen(3000);
 app.get("/allemp", (request, response) => 
@@ -46,10 +46,56 @@ app.post("/newuser", (req, res) => {
 });
 
 // app.listen(3000);
-app.get("/allcities", (request, response) => 
+// app.get("/allcities", (request, response) => 
+// {
+//     conn.query("select *from cities", (error, result) => 
+//     {
+//         response.json(result);
+//     });
+// });
+
+app.get("/allstate", (request, response) => 
 {
-    conn.query("select *from cities", (error, result) => 
+    conn.query("select *from states where country_id=101", (error, result) => 
     {
         response.json(result);
     });
 });
+app.get("/statebyid/:id", (request, response) => 
+{
+    console.log(request.params);
+    conn.query("select *from states where id="+request.params.id, (error, result) => 
+    {
+        console.log(error);
+        response.json(result);
+    });
+});
+
+
+app.get("/allcities/:sid", (request, response) => 
+{
+    console.log(request.params);
+    conn.query("select *from cities where state_id="+request.params.sid, (error, result) => 
+    {
+        response.json(result);
+    });
+});
+
+app.get("/allcollege/:cid", (request, response) => 
+{
+    console.log(request.params);
+    conn.query("select *from college where city_id="+request.params.cid, (error, result) => 
+    {
+        response.json(result);
+    });
+});
+app.get("/getcollegebycid/:cid", (request, response) => 
+{
+    console.log(request.params);
+    conn.query("select college.*,college_details.* from college inner join college_details on college.id=college_details.clg_id where college.id="+request.params.cid, (error, result) => 
+    {
+        response.json(result);
+        console.log(error);
+    });
+});
+// app.get("/getcollegebycid/:cid",())

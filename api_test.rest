@@ -21,6 +21,19 @@ Content-Type: application/json
 
 
 ####
-POST http://localhost:3000/cities HTTP/1.1
+get http://localhost:3000/allstate HTTP/1.1
 
 
+####
+get http://localhost:3000/allcities/2 HTTP/1.1
+Content-Type: application/json
+
+####
+get http://localhost:3000/allcollege HTTP/1.1
+Content-Type: application/json
+
+###
+get http://localhost:3000/getcollegebycid/5 HTTP/1.1
+
+###
+get http://localhost:3000/statebyid/2 HTTP/1.1
